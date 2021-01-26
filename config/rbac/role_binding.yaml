@@ -5,8 +5,8 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: manager-role
+  name: istio-workspace
 subjects:
 - kind: ServiceAccount
-  name: default
+  name: istio-workspace
   namespace: system

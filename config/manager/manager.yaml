@@ -12,6 +12,7 @@ metadata:
   namespace: system
   labels:
     control-plane: controller-manager
+    app: istio-workspace
 spec:
   selector:
     matchLabels:
@@ -21,30 +22,44 @@ spec:
     metadata:
       labels:
         control-plane: controller-manager
+        app: istio-workspace
     spec:
+      serviceAccountName: istio-workspace
       securityContext:
         runAsUser: 65532
       containers:
-      - command:
-        - /manager
-        args:
-        - --leader-elect
+      - name: istio-workspace
         image: controller:latest
-        name: manager
+        imagePullPolicy: Always
+        command:
+          - ike
+        args:
+          - serve
+          - --leader-elect
+        env:
+          - name: WATCH_NAMESPACE
+            value: ""
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: OPERATOR_NAME
+            value: "istio-workspace"
         securityContext:
           allowPrivilegeEscalation: false
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 8081
+            port: 8282
           initialDelaySeconds: 15
           periodSeconds: 20
         readinessProbe:
           httpGet:
             path: /readyz
-            port: 8081
-          initialDelaySeconds: 5
-          periodSeconds: 10
+            port: 8282
+          initialDelaySeconds: 2
+          periodSeconds: 20
+          failureThreshold: 10
         resources:
           limits:
             cpu: 100m
@@ -52,4 +67,4 @@ spec:
           requests:
             cpu: 100m
             memory: 20Mi
-      terminationGracePeriodSeconds: 10
+      terminationGracePeriodSeconds: 30

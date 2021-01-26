@@ -1,7 +1,11 @@
-apiVersion: maistra.io.maistra.io/v1alpha1
+apiVersion: maistra.io/v1alpha1
 kind: Session
 metadata:
   name: session-sample
 spec:
-  # Add fields here
-  foo: bar
+  route:
+    type: header
+    name: end-user
+    value: jason
+  ref:
+    - name: ratings-v1

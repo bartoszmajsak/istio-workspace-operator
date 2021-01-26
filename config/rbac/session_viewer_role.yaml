@@ -5,7 +5,7 @@ metadata:
   name: session-viewer-role
 rules:
 - apiGroups:
-  - maistra.io.maistra.io
+  - maistra.io
   resources:
   - sessions
   verbs:
@@ -13,7 +13,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - maistra.io.maistra.io
+  - maistra.io
   resources:
   - sessions/status
   verbs:
