@@ -191,10 +191,6 @@ spec:
                   requests:
                     cpu: 100m
                     memory: 20Mi
-                securityContext:
-                  allowPrivilegeEscalation: false
-              securityContext:
-                runAsUser: 65532
               serviceAccountName: istio-workspace
               terminationGracePeriodSeconds: 30
     strategy: deployment
