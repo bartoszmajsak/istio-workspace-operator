@@ -35,7 +35,6 @@ spec:
           - ike
         args:
           - serve
-          - --leader-elect
         env:
           - name: WATCH_NAMESPACE
             value: ""

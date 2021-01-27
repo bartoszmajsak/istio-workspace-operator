@@ -155,7 +155,6 @@ spec:
               containers:
               - args:
                 - serve
-                - --leader-elect
                 command:
                 - ike
                 env:
